@@ -1,0 +1,36 @@
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "34343434"
+}
+//should produce 400 bad request, with name missing in response
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Hugh Jass"
+}
+
+//should give 400, with number missing
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Hugh Jass",
+  "number": "23232323"
+}
+//should work just fine
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Hugh Jass",
+  "number": "23232323"
+}
+
+//should return 409 conflict, and name already exists as response

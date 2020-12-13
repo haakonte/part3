@@ -71,7 +71,7 @@ const generateID = () => Math.ceil(Math.random() * 100)
 app.post('/api/persons', (request, response) => {
   const ID = generateID()
   const body = request.body
-  const person = persons.find(person => person.name === body.name)
+  const person_in_persons = persons.find(person => person.name === body.name)
   
   if (!body.name) {
     return response.status(400).json({
@@ -81,7 +81,7 @@ app.post('/api/persons', (request, response) => {
     return response.status(400).json({
       error: 'number missing'
     })
-  } else if (person) {
+  } else if (person_in_persons) {
     return response.status(409).json({
       error: 'name is already there'
     })
