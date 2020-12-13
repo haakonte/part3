@@ -60,6 +60,44 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 /**
+ * Helper method for generating an 
+ * id which will hopefully be unique
+ */
+const generateID = () => Math.ceil(Math.random() * 100)
+
+/**
+ * CRUD method for posting a new person
+ */
+app.post('/api/persons', (request, response) => {
+  const ID = generateID()
+  const body = request.body
+  const person = persons.find(person => person.name === body.name)
+  
+  if (!body.name) {
+    return response.status(400).json({
+      error: 'name missing'
+    })
+  } else if (!body.number) {
+    return response.status(400).json({
+      error: 'number missing'
+    })
+  } else if (person) {
+    return response.status(409).json({
+      error: 'name is already there'
+    })
+  }
+
+  const person = {
+    id: ID,
+    name: body.name,
+    number: body.number
+  }
+
+  persons = persons.concat(person)
+  response.json(person)
+})
+
+/**
  * Delete method, deletes person by given ID, 
  * or returns 404 if that person is not found
  */
