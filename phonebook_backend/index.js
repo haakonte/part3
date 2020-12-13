@@ -1,9 +1,13 @@
 const { response, request } = require('express')
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 
 app.use(express.json())
+morgan.token('json_body', (request, response) => JSON.stringify(request.body))
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :json_body'))
 
 let persons = [
   {
@@ -77,11 +81,13 @@ app.post('/api/persons', (request, response) => {
     return response.status(400).json({
       error: 'name missing'
     })
-  } else if (!body.number) {
+  }
+  if (!body.number) {
     return response.status(400).json({
       error: 'number missing'
     })
-  } else if (person_in_persons) {
+  } 
+  if (person_in_persons) {
     return response.status(409).json({
       error: 'name is already there'
     })
