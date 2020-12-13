@@ -1,0 +1,13 @@
+//gets the entire list of persons
+
+GET http://localhost:3001/api/persons
+
+###
+
+DELETE http://localhost:3001/api/persons/3
+
+###
+
+GET http://localhost:3001/api/persons
+
+//works as expected, list now has no entry with id = 3
