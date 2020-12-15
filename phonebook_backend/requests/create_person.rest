@@ -9,3 +9,16 @@ Content-Type: application/json
 ###
 
 GET https://fathomless-scrubland-50635.herokuapp.com/api/persons
+
+###
+//Post with localhost
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Mike Coxlong",
+  "number": "30303030"
+}
+
+###
+GET http://localhost:3001/api/persons
