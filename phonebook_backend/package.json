@@ -8,9 +8,10 @@
     "dev": "nodemon index.js",
     "test": "echo Test",
     "build:ui": "rm -rf build && cd ../../../part2/part2/phonebook_part2 && npm run build --prod && cp -r build ../../../part3/part3/phonebook_backend",
-    "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
-    "logs:prod": "heroku logs --tail"
+    "deploy:master": "git push heroku HEAD:master",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy:master",
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "author": "Håkon Telje",
   "license": "ISC",
@@ -23,6 +24,10 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "eslint": "^7.15.0",
+    "nodemon": "^2.0.6",
+    "typescript": "^3.7.0-beta"
   }
 }

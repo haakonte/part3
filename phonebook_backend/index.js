@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
@@ -8,7 +9,7 @@ const Person = require('./models/person')
 app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
-morgan.token('json_body', (request, response) => JSON.stringify(request.body))
+morgan.token('json_body', (request, _unused) => JSON.stringify(request.body))
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :json_body'))
 
@@ -85,9 +86,10 @@ app.put('/api/persons/:id', (request, response, next) => {
 
   const person = {
     name: body.name,
-    number: body.number
+    number: body.number,
   }
-  Person.findByIdAndUpdate(request.params.id, person, {new:true})
+
+  Person.findByIdAndUpdate(request.params.id, person , {new:true, context: 'query'})
     .then(updatedPerson => {
       response.json(updatedPerson.toJSON())
     })
@@ -127,7 +129,7 @@ const errorHandler = (error, request, response, next) => {
 
 app.use(errorHandler)
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
