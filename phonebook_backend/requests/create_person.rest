@@ -1,9 +1,18 @@
-POST https://fathomless-scrubland-50635.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
   "name": "Nick Kerr",
-  "number": "100000000"
+  "number": "1000000000"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Nick Kerr",
+  "number": "1000000000"
 }
 
 ###
